@@ -1,0 +1,10 @@
+# ninja log v5
+622	834	1711701295513116089	multi_process_server	b42186c5504223fd
+3	164	1711700337514858930	CMakeFiles/multi_process_server.dir/client.cpp.o	e2470f8323ce8f8d
+4	622	1711701295301118996	CMakeFiles/multi_process_server.dir/server.cpp.o	abcf9ef83a250933
+4	717	1711701755828944423	CMakeFiles/multi_process_server.dir/server.cpp.o	abcf9ef83a250933
+717	972	1711701756080939194	multi_process_server	b42186c5504223fd
+0	581	1711701778728466851	CMakeFiles/client.dir/client.cpp.o	708a0fde3f9aec9a
+581	752	1711701778896463330	client	4761bbae9027e5db
+2	535	1711702121892844719	CMakeFiles/multi_process_server.dir/server.cpp.o	abcf9ef83a250933
+536	725	1711702122080840355	multi_process_server	b42186c5504223fd

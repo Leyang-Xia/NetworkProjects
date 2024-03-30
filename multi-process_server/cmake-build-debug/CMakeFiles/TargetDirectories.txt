@@ -1,0 +1,4 @@
+/home/leyang/NetworkProjects/multi-process_server/cmake-build-debug/CMakeFiles/multi_process_server.dir
+/home/leyang/NetworkProjects/multi-process_server/cmake-build-debug/CMakeFiles/client.dir
+/home/leyang/NetworkProjects/multi-process_server/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/leyang/NetworkProjects/multi-process_server/cmake-build-debug/CMakeFiles/rebuild_cache.dir
