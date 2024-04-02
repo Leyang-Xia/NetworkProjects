@@ -1,3 +1,0 @@
-/home/leyang/NetworkProjects/selete/cmake-build-debug/CMakeFiles/selete.dir
-/home/leyang/NetworkProjects/selete/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/leyang/NetworkProjects/selete/cmake-build-debug/CMakeFiles/rebuild_cache.dir
