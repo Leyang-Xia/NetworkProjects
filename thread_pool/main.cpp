@@ -1,42 +1,59 @@
 #include "threadpool.h"
+#include <random>
 
-void task1() {
-    std::cout << "Task 1 is running..." << std::endl;
-    std::this_thread::sleep_for(std::chrono::seconds(5)); // 修改任务执行时间为5秒
-    std::cout << "Task 1 is completed." << std::endl;
-}
+class Philosopher {
+public:
+    Philosopher(int id, std::mutex& leftFork, std::mutex& rightFork) :
+            id(id), leftFork(leftFork), rightFork(rightFork) {}
 
-void task2() {
-    std::cout << "Task 2 is running..." << std::endl;
-    std::this_thread::sleep_for(std::chrono::seconds(8)); // 修改任务执行时间为8秒
-    std::cout << "Task 2 is completed." << std::endl;
-}
+    void dine() {
+        while (true) {
+            think(); // 思考
+            eat();   // 进餐
+        }
+    }
+
+    void think() {
+        std::cout << "Philosopher " << id << " is thinking..." << std::endl;
+        std::this_thread::sleep_for(std::chrono::milliseconds(getRandomTime())); // 模拟思考一段时间
+    }
+
+    void eat() {
+        std::lock(leftFork, rightFork); // 同时锁住左右两根筷子，避免死锁
+        std::lock_guard<std::mutex> leftLock(leftFork, std::adopt_lock);
+        std::lock_guard<std::mutex> rightLock(rightFork, std::adopt_lock);
+        std::cout << "Philosopher " << id << " is eating..." << std::endl;
+        std::this_thread::sleep_for(std::chrono::milliseconds(getRandomTime())); // 模拟进餐一段时间
+    }
+
+private:
+    int id;
+    std::mutex& leftFork;
+    std::mutex& rightFork;
+
+    int getRandomTime() {
+        static std::mt19937 gen(std::random_device{}());
+        std::uniform_int_distribution<int> dist(100, 1000); // 随机生成100到1000毫秒的时间
+        return dist(gen);
+    }
+};
 
 int main() {
-    ThreadPool pool(2, 4);
+    const int numPhilosophers = 5;
+    std::vector<std::mutex> forks(numPhilosophers); // 五根筷子
+    ThreadPool pool(5, 5); // 创建一个具有五个线程的线程池
 
-    // 添加任务
-    pool.addTask(task1);
-    pool.addTask(task2);
+    // 创建五个哲学家并添加到线程池中
+    for (int i = 0; i < numPhilosophers; ++i) {
+        pool.addTask([i, &forks]() {
+            Philosopher philosopher(i, forks[i], forks[(i + 1) % numPhilosophers]);
+            philosopher.dine();
+        });
+    }
 
-    // 打印线程池状态
-    std::cout << "Busy threads: " << pool.getBusyNumber() << std::endl;
-    std::cout << "Alive threads: " << pool.getAliveNumber() << std::endl;
-
-    // 等待一段时间，让任务执行完成
-    std::this_thread::sleep_for(std::chrono::seconds(10)); // 延长等待时间
-
-    // 打印线程池状态
-    std::cout << "Busy threads: " << pool.getBusyNumber() << std::endl;
-    std::cout << "Alive threads: " << pool.getAliveNumber() << std::endl;
-
-    // 关闭线程池
+    // 运行一段时间后关闭线程池
+    std::this_thread::sleep_for(std::chrono::seconds(30)); // 运行30秒
     pool.shutdown();
-
-    // 添加任务，此时线程池已关闭，任务不会被执行
-    pool.addTask(task1);
-    pool.addTask(task2);
-
 
     return 0;
 }
