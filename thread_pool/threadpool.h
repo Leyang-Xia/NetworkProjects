@@ -26,7 +26,7 @@ private:
         std::function<void()> function;
     };
 
-    using TaskQueue = std::queue<Task>;
+    using TaskQueue = std::queue<Task>; //using new_type = existing_type;
 
     void addThread();
     void worker();
