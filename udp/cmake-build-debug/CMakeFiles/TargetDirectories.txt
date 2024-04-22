@@ -1,4 +1,0 @@
-/home/leyang/NetworkProjects/udp/cmake-build-debug/CMakeFiles/udp_server.dir
-/home/leyang/NetworkProjects/udp/cmake-build-debug/CMakeFiles/udp_client.dir
-/home/leyang/NetworkProjects/udp/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/leyang/NetworkProjects/udp/cmake-build-debug/CMakeFiles/rebuild_cache.dir
